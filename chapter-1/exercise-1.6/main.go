@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/gif"
@@ -45,5 +46,8 @@ func lissajous(out io.Writer) {
 		anim.Delay = append(anim.Delay, delay)
 		anim.Image = append(anim.Image, img)
 	}
-	gif.EncodeAll(out, &anim)
+	err := gif.EncodeAll(out, &anim)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "lissajous: %v\n", err)
+	}
 }
